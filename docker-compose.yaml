@@ -1,0 +1,38 @@
+services:
+  postgres:
+    image: postgres:latest
+    environment:
+      POSTGRES_DB: ${DB_NAME}
+      POSTGRES_USER: ${DB_USERNAME}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+    ports:
+      - 5432:5432
+    volumes:
+      - postgres_data:/var/lib/postgresql
+
+  garage-service:
+    image: garage-service
+    build:
+        context: ./garage-service
+        dockerfile: src/main/docker/Dockerfile.jvm
+    environment:
+      - QUARKUS_DATASOURCE_JDBC_URL=jdbc:postgresql://postgres:5432/${DB_NAME}
+    env_file:
+      - .env
+    ports:
+      - 8080:8080
+    depends_on:
+      - postgres
+
+  garage-frontend:
+    image: garage-frontend
+    build:
+      context: ./garage-frontend
+      dockerfile: Dockerfile.frontend
+    ports:
+      - "80:80"
+    depends_on:
+      - garage-service
+
+volumes:
+  postgres_data:
