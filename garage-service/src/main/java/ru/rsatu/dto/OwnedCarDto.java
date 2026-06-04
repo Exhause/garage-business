@@ -11,6 +11,7 @@ public class OwnedCarDto {
     public Boolean occupyingBox;
     @JsonInclude(JsonInclude.Include.NON_NULL)
     public Long boxId;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public LocalDate endDate;
 
     public OwnedCarDto(Long carId, String brandName, Long boxId) {

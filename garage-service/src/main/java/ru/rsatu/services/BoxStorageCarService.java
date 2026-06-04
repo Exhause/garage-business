@@ -14,9 +14,17 @@ import java.util.List;
 public class BoxStorageCarService {
     @Transactional
     public void createBoxStorageCar(BoxStorageCarSaveDto dto) {
+        Box box = Box.findById(dto.boxId);
+        Car car = Car.findById(dto.carId);
+
+        long count = BoxSpecializationBrand.count("box = ?1 and brand = ?2", box, car.brand);
+        if (count == 0) {
+            throw new IllegalArgumentException("Box does not support this car brand");
+        }
+
         BoxStorageCar boxStorageCar = new BoxStorageCar();
-        boxStorageCar.box = Box.findById(dto.boxId);
-        boxStorageCar.car = Car.findById(dto.carId);
+        boxStorageCar.box = box;
+        boxStorageCar.car = car;
         boxStorageCar.receiptNumber = dto.receiptNumber;
         boxStorageCar.startDate = dto.startDate;
         boxStorageCar.endDate = dto.endDate;

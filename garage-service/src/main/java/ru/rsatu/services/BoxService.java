@@ -107,7 +107,7 @@ public class BoxService {
     public List<OccupiedBoxDto> getOccupiedWithPrices() {
         return Box.getEntityManager()
                 .createQuery(
-                        "SELECT NEW ru.rsatu.dto.OccupiedBoxDto.java(bsc.box.id, bsc.pricePerDay) " +
+                        "SELECT NEW ru.rsatu.dto.OccupiedBoxDto(bsc.box.id, bsc.pricePerDay) " +
                                 "FROM BoxStorageCar bsc",
                         OccupiedBoxDto.class)
                 .getResultList();

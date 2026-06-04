@@ -2,8 +2,12 @@ package ru.rsatu.resources;
 
 import jakarta.inject.Inject;
 import jakarta.ws.rs.*;
+import jakarta.ws.rs.core.MediaType;
 import ru.rsatu.services.BoxSpecializationBrandService;
 
+@Path("/box-specialization-brand")
+@Produces(MediaType.APPLICATION_JSON)
+@Consumes(MediaType.APPLICATION_JSON)
 public class BoxSpecializationBrandResource {
     @Inject
     BoxSpecializationBrandService boxSpecializationBrandService;

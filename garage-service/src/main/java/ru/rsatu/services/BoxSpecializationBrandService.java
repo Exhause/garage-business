@@ -1,11 +1,13 @@
 package ru.rsatu.services;
 
+import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.transaction.Transactional;
 import ru.rsatu.entities.Box;
 import ru.rsatu.entities.BoxSpecializationBrand;
 import ru.rsatu.entities.BoxSpecializationBrandId;
 import ru.rsatu.entities.Brand;
 
+@ApplicationScoped
 public class BoxSpecializationBrandService {
     @Transactional
     public void addSpecialization(Long boxId, Long brandId) {

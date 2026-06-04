@@ -36,8 +36,8 @@ public class ClientService {
         List<Object[]> results = Client.getEntityManager().createQuery(
                 "SELECT cl, c.id, b.name, bsc.box.id " +
                         "FROM Client cl " +
-                        "JOIN Car c ON c.client.id = cl.id " +
-                        "JOIN c.brand b " +
+                        "LEFT JOIN Car c ON c.client.id = cl.id " +
+                        "LEFT JOIN c.brand b " +
                         "LEFT JOIN BoxStorageCar bsc ON bsc.car.id = c.id",
                 Object[].class
         ).getResultList();
@@ -55,7 +55,9 @@ public class ClientService {
             if (clientMap.get(client.id).ownedCars == null) {
                 clientMap.get(client.id).ownedCars = new ArrayList<>();
             }
-            clientMap.get(client.id).ownedCars.add(new OwnedCarDto(carId, brandName, boxId));
+            if (carId != null) {
+                clientMap.get(client.id).ownedCars.add(new OwnedCarDto(carId, brandName, boxId));
+            }
         }
         return new ArrayList<>(clientMap.values());
     }
