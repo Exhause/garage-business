@@ -25,6 +25,12 @@ public class BoxResource {
         return boxService.getAllBoxes();
     }
 
+    @GET
+    @Path("/{id}")
+    public BoxFullDto getBoxById(@PathParam("id") Long id) {
+        return boxService.getBoxById(id);
+    }
+
     @POST
     public void addBox() {
         boxService.addBox();
