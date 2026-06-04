@@ -7,5 +7,4 @@ import jakarta.persistence.Table;
 @Entity
 @Table(name = "box")
 public class Box extends PanacheEntity {
-    // у бокса нет внешних ключей в его таблице
 }

@@ -1,6 +1,6 @@
 package ru.rsatu.dto;
 
-public class ClientRequest {
+public class ClientSaveDto {
     public String firstName;
     public String lastName;
     public String middleName;

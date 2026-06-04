@@ -20,40 +20,19 @@ public class BoxResource {
     @Inject
     BoxService boxService;
 
+    @GET
+    public List<BoxDto> getAllBoxes() {
+        return boxService.getAllBoxes();
+    }
+
     @POST
     public void addBox() {
         boxService.addBox();
     }
 
     @DELETE
-    @Path("/{id}")
-    public void closeBox(@PathParam("id") Long id) {
-        boxService.closeBox(id);
-    }
-
-    @GET
-    @Path("/free")
-    public List<BoxDto> getFreeBoxes() {
-        return boxService.getFreeBoxes()
-                .stream()
-                .map(BoxDto::fromEntity)
-                .collect(Collectors.toList());
-    }
-
-    @GET
-    @Path("/{id}/allowed-brands")
-    public List<BrandResponse> getAllowedBrands(@PathParam("id") Long id) {
-        return boxService.getAllowedBrands(id)
-                .stream()
-                .map(BrandResponse::fromEntity)
-                .collect(Collectors.toList());
-    }
-
-    @POST
-    @Path("/{id}/specialization")
-    public Response addSpecialization(@PathParam("id") Long boxId,
-                                      @QueryParam("brandId") Long brandId) {
-        BoxSpecializationBrand spec = boxService.addSpecialization(boxId, brandId);
-        return Response.status(Response.Status.CREATED).entity(spec).build(); // можно вернуть сам объект или DTO при необходимости
+    @Path("/{boxId}")
+    public void deleteBox(@PathParam("boxId") Long boxId) {
+        boxService.deleteBox(boxId);
     }
 }

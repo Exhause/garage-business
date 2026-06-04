@@ -1,6 +1,5 @@
 package ru.rsatu.dto;
 
-public class BrandRequest {
+public class BrandSaveDto {
     public String name;
 }
-

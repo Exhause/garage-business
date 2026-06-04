@@ -1,13 +1,11 @@
 package ru.rsatu.dto;
 
-import ru.rsatu.entities.Box;
-
 public class BoxDto {
     public Long id;
+    public boolean free;
 
-    public static BoxDto fromEntity(Box box) {
-        BoxDto dto = new BoxDto();
-        dto.id = box.id;
-        return dto;
+    public BoxDto(Long id, boolean free) {
+        this.id = id;
+        this.free = free;
     }
 }

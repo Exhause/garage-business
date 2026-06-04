@@ -1,30 +1,28 @@
 package ru.rsatu.services;
 
+import ru.rsatu.dto.ClientSaveDto;
 import ru.rsatu.entities.Client;
 
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.transaction.Transactional;
+
 import java.util.List;
 
 @ApplicationScoped
 public class ClientService {
 
     @Transactional
-    public Client addClient(String firstName, String lastName, String middleName, String address) {
+    public void createClient(ClientSaveDto dto) {
         Client client = new Client();
-        client.firstName = firstName;
-        client.lastName = lastName;
-        client.middleName = middleName;
-        client.address = address;
+        client.firstName = dto.firstName;
+        client.lastName = dto.lastName;
+        client.middleName = dto.middleName;
+        client.address = dto.address;
         client.persist();
-        return client;
     }
 
-    public List<Client> getAllClients() {
-        return Client.listAll();
-    }
-
-    public Client getClient(Long id) {
-        return Client.findById(id);
+    @Transactional
+    public void deleteClient(Long clientId) {
+        Client.deleteById(clientId);
     }
 }

@@ -1,32 +1,31 @@
 package ru.rsatu.services;
 
-import jakarta.ws.rs.NotFoundException;
+import ru.rsatu.dto.BrandDto;
+import ru.rsatu.dto.BrandSaveDto;
 import ru.rsatu.entities.*;
 
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.transaction.Transactional;
+
 import java.util.List;
 
 @ApplicationScoped
 public class BrandService {
+    public List<BrandDto> getAllBrands() {
+        return Brand.getEntityManager().createQuery(
+                "SELECT NEW ru.rsatu.dto.BrandDto(b.id, b.name) FROM Brand b", BrandDto.class
+        ).getResultList();
+    }
 
     @Transactional
-    public Brand addBrand(String name) {
+    public void createBrand(BrandSaveDto dto) {
         Brand brand = new Brand();
-        brand.name = name;
+        brand.name = dto.name;
         brand.persist();
-        return brand;
     }
 
     @Transactional
-    public void removeBrand(Long brandId) {
-        Brand brand = Brand.findById(brandId);
-        if (brand == null) throw new NotFoundException("Бренд отсутствует");
-        Car.delete("brand", brand);
-        brand.delete();
-    }
-
-    public List<Brand> getAllBrands() {
-        return Brand.listAll();
+    public void deleteBrand(Long brandId) {
+        Brand.deleteById(brandId);
     }
 }
