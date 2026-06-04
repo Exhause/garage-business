@@ -31,6 +31,12 @@ public class BoxResource {
         return boxService.getBoxById(id);
     }
 
+    @GET
+    @Path("/free")
+    public List<Long> getFreeBoxes() {
+        return boxService.getFreeBoxes();
+    }
+
     @POST
     public void addBox() {
         boxService.addBox();
@@ -40,5 +46,23 @@ public class BoxResource {
     @Path("/{boxId}")
     public void deleteBox(@PathParam("boxId") Long boxId) {
         boxService.deleteBox(boxId);
+    }
+
+    @GET
+    @Path("/specialized-on-car/{carId}")
+    public List<Long> getSpecializedOnCar(@PathParam("carId") Long carId) {
+        return boxService.getSpecializedOnCar(carId);
+    }
+
+    @GET
+    @Path("/{boxId}/available-brands")
+    public List<BrandDto> getAvailableBrands(@PathParam("boxId") Long boxId) {
+        return boxService.getAvailableBrands(boxId);
+    }
+
+    @GET
+    @Path("/occupied-with-prices")
+    public List<OccupiedBoxDto> getOccupiedWithPrices() {
+        return boxService.getOccupiedWithPrices();
     }
 }
