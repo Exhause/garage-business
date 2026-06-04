@@ -86,7 +86,9 @@ public class BoxService {
         Car car = Car.findById(carId);
         return Box.getEntityManager()
                 .createQuery(
-                        "SELECT bsb.box.id FROM BoxSpecializationBrand bsb WHERE bsb.brand.id = :brandId",
+                        "SELECT bsb.box.id FROM BoxSpecializationBrand bsb " +
+                                "WHERE bsb.brand.id = :brandId " +
+                                "AND bsb.box NOT IN (SELECT bsc.box from BoxStorageCar bsc)",
                         Long.class)
                 .setParameter("brandId", car.brand.id)
                 .getResultList();
